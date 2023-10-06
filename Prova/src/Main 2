@@ -1,0 +1,135 @@
+import java.util.Random;
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner myObj = new Scanner(System.in);
+        Random random = new Random();
+        System.out.println("Qual o tamanho do array desejado para comparacao?");
+
+        int Tamanho = myObj.nextInt();
+
+
+        int[] ListaP = new int[Tamanho];
+        int[] ListaA = new int[Tamanho];
+        int[] ListaB = new int[Tamanho];
+        int[] ListaC = new int[Tamanho];
+
+        long CronometroA1 = System.currentTimeMillis();
+
+// Criacao dos vetores e copia dos valores para vetores auxiliares
+
+        for (int i = 0; i < Tamanho; i++) {
+            ListaP[i] = random.nextInt(100);
+            System.out.println("Elemento lista Primaria " + i + ": " + ListaP[i]);
+            ListaA[i] = ListaP[i];
+            ListaB[i] = ListaP[i];
+            ListaC[i] = ListaP[i];
+            System.out.println("Elemento Lista A" + i + ": " + ListaA[i]);
+            System.out.println("Elemento Lista B" + i + ": " + ListaB[i]);
+            System.out.println("Elemento Lista C" + i + ": " + ListaC[i]);
+        }
+        long CronometroA2 = System.currentTimeMillis();
+        long CronometroB1 = System.currentTimeMillis();
+
+        //BubleSort
+        int n = ListaA.length;
+        boolean swapped;
+        for (int i = 0; i < n - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < n - i - 1; j++) {
+                if (ListaA[j] > ListaA[j + 1]) {
+                    int temp = ListaA[j];
+                    ListaA[j] = ListaA[j + 1];
+                    ListaA[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+
+            if (!swapped) {
+                break;
+            }
+
+            }
+        long CronometroB2 = System.currentTimeMillis();
+        for (int i = 0; i < Tamanho; i++) {
+            System.out.println("Elemento Lista A" + i + ": " + ListaA[i]);
+
+        }
+
+
+        //Selection Sort
+        long CronometroC1 = System.currentTimeMillis();
+        int x = ListaB.length;
+
+        for (int i = 0; i < x - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < x; j++) {
+                if (ListaB[j] < ListaB[minIndex]) {
+                    minIndex = j;
+                }
+            }
+            int temp = ListaB[i];
+            ListaB[i] = ListaB[minIndex];
+            ListaB[minIndex] = temp;
+        }
+        long CronometroC2 = System.currentTimeMillis();
+
+        for (int i = 0; i < Tamanho; i++) {
+            System.out.println("Elemento Lista B" + i + ": " + ListaB[i]);
+
+        }
+
+        //Shell Sort
+        long CronometroD1 = System.currentTimeMillis();
+        int i = 0, j = 0, value = 0;
+        int gap = 1;
+        int size = ListaC.length;
+        while(gap < size) {
+            gap = 3*gap+1;
+        }
+        while ( gap > 1) {
+            gap /= 3;
+            for(i = gap; i < size; i++) {
+                value = ListaC[i];
+                j = i - gap;
+                while (j >= 0 && value < ListaC[j]) {
+                    ListaC [j + gap] = ListaC[j];
+                    j -= gap;
+                }
+                    ListaC [j + gap] = value;
+            }
+        }
+
+        long CronometroD2 = System.currentTimeMillis();
+
+        //Comparacao de tempo
+        long CronometroA = CronometroA2 - CronometroA1;
+        System.out.println("Tempo decorrido: Copia dos vetores -> " + CronometroA + " milissegundos");
+
+        long CronometroB = CronometroB2 - CronometroB1;
+        System.out.println("Tempo decorrido: Buble sort -> " + CronometroB + " milissegundos");
+
+        long CronometroC = CronometroC2 - CronometroC1;
+        System.out.println("Tempo decorrido: Selection sort -> " + CronometroC + " milissegundos");
+
+        long CronometroD = CronometroD2 - CronometroD1;
+        System.out.println("Tempo decorrido: Shell Sort -> " + CronometroD + " milissegundos");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+}
